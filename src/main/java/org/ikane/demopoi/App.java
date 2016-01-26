@@ -38,6 +38,9 @@ public class App {
 				
 				if(containsValue(row, fcell, lcell) == true){
 					System.out.println("index:" + i++);
+				} else {
+					System.out.println("******* " + i + " lines processed *********");
+					break;
 				}
 			}
 
