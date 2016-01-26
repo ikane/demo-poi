@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -30,13 +32,15 @@ public class App {
 
 			int i = 0;
 			while (rowIterator.hasNext()) {
-				
-				XSSFRow row = (XSSFRow) rowIterator.next();//increment the row iterator
-				
+
+				XSSFRow row = (XSSFRow) rowIterator.next();// increment the row
+															// iterator
+
 				int fcell = row.getFirstCellNum();// first cell number of excel
-				int lcell = row.getLastCellNum(); //last cell number of excel
-				
-				if(containsValue(row, fcell, lcell) == true){
+				int lcell = row.getLastCellNum(); // last cell number of excel
+
+				//if (containsValue(row, fcell, lcell) == true) {
+				if (containsValue(row) == true) {
 					System.out.println("index:" + i++);
 				} else {
 					System.out.println("******* " + i + " lines processed *********");
@@ -74,6 +78,20 @@ public class App {
 				flag = true;
 			}
 		}
+		return flag;
+	}
+
+	public static boolean containsValue(Row row) {
+		boolean flag = false;
+
+		Cell cell = row.getCell(0);
+		if (StringUtils.isEmpty(String.valueOf(cell)) == true || StringUtils.isWhitespace(String.valueOf(cell)) == true
+				|| StringUtils.isBlank(String.valueOf(cell)) == true || String.valueOf(cell).length() == 0
+				|| cell == null) {
+		} else {
+			flag = true;
+		}
+
 		return flag;
 	}
 }
